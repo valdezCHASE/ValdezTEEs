@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stores – GRIT-ICE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      background-color: #ffffff;
+      color: #111;
+    }
+    header {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+    header h1 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    nav a {
+      color: #111;
+      margin-left: 20px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      padding: 60px 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 60px;
+    }
+
+    .store-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .store-img {
+      max-width: 500px;
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    .store-info {
+      max-width: 400px;
+    }
+
+    .store-info h2 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .store-info p {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .store-info button {
+      background-color: transparent;
+      border: 1px solid #111;
+      color: #111;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .store-info button:hover {
+      background-color: #111;
+      color: #fff;
+    }
+
+    footer {
+      background-color: #f7f7f7;
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #ddd;
+      margin-top: 80px;
+    }
+
+    .social-icons a {
+      color: #111;
+      margin: 0 10px;
+      font-size: 20px;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .store-section {
+        flex-direction: column;
+      }
+      .store-info {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>GRIT-ICE</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="cart.html">Cart</a>
+      <a href="stores.html">Stores</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="section-title">Visit The Nearest Stores Near You</div>
+
+    <div class="store-section">
+      <img src="map1.webp" alt="Caloocan Store Map" class="store-img">
+      <div class="store-info">
+        <h2>Caloocan</h2>
+        <p>406 A. Main St. Brgy. 15, Caloocan City</p>
+        <button onclick="window.open('https://maps.google.com?q=406+A.+Main+St+Brgy+15+Caloocan+City', '_blank')">VIEW MAP</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="store-section">
+      <img src="map2.webp" alt="Cuba Store Map" class="store-img">
+      <div class="store-info">
+        <h2>Cubao</h2>
+        <p>406 A. Main St. Brgy. 15, Caloocan City</p>
+        <button onclick="window.open('https://www.google.com/maps/place/HGHMNDS/@14.6263427,121.04829,17z/data=!3m1!4b1!4m6!3m5!1s0x3397b7bac7340001:0xd2f044b1e9853935!8m2!3d14.6263427!4d121.04829!16s%2Fg%2F11y1gb46ql?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoASAFQAw%3D%3D')">VIEW MAP</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-tiktok"></i></a>
+    </div>
+  </footer>
+
+</body>
+</html>

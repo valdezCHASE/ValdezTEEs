@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRIT-ICE</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #ffffff;
+      color: #000000;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 0.5rem;
+      position: fixed;
+      width: 100%;
+      z-index: 999;
+    }
+
+    /* HEADER */
+    header {
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 2rem;
+      z-index: 998;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: inherit;
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+    }
+
+    nav a:hover {
+      color: #666;
+    }
+
+    .highlight-product {
+      text-decoration: none;
+      color: inherit;
+      font-family: 'Arial', sans-serif;
+      cursor: default;
+    }
+
+    .highlight-product p {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      color: #000;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* DROPDOWNS */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      min-width: 150px;
+      z-index: 1000;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: #000;
+      text-decoration: none;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* HAMBURGER MENU */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #000;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: white;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        padding: 1rem;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: none;
+      }
+
+      .dropdown.open .dropdown-content {
+        display: block;
+      }
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      height: 90vh;
+      overflow: hidden;
+      margin-top: 3rem;
+    }
+
+    .background-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .overlay {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .shop-button {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      text-decoration: none;
+      border: 2px solid white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .shop-button:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+      color: #000;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 3rem 0 1rem;
+      font-size: 2rem;
+    }
+
+    .products, .highlights-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      padding: 3rem 1rem;
+    }
+
+    .product, .highlight-product {
+      width: 280px;
+      text-align: center;
+    }
+
+    .highlight-product img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .highlight-product img:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP INFO BAR -->
+  <div class="top-bar">FREE NATIONWIDE SHIPPING ON ORDERS WORTH ₱2000</div>
+
+  <!-- HEADER -->
+<header>
+  <div class="social-icons" style="display: flex; gap: 10px; align-items: center;">
+    <!-- Facebook -->
+    <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#111" viewBox="0 0 24 24">
+        <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 5 3.66 9.13 8.44 9.88v-6.99H7.9v-2.89h2.54V9.41c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.77l-.44 2.89h-2.33v6.99C18.34 21.13 22 17 22 12z"/>
+      </svg>
+    </a>
+
+    <!-- Instagram -->
+    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#111" viewBox="0 0 24 24">
+        <path d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.41a4.9 4.9 0 011.75 1.13 4.9 4.9 0 011.13 1.75c.17.46.354 1.26.41 2.43.058 1.27.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.41 2.43a4.9 4.9 0 01-1.13 1.75 4.9 4.9 0 01-1.75 1.13c-.46.17-1.26.354-2.43.41-1.27.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.24-2.43-.41a4.9 4.9 0 01-1.75-1.13 4.9 4.9 0 01-1.13-1.75c-.17-.46-.354-1.26-.41-2.43C2.212 15.584 2.2 15.2 2.2 12s.012-3.584.07-4.85c.056-1.17.24-1.97.41-2.43A4.9 4.9 0 013.81 2.97a4.9 4.9 0 011.75-1.13c.46-.17 1.26-.354 2.43-.41C8.416 2.212 8.8 2.2 12 2.2zm0 1.8c-3.137 0-3.508.012-4.743.068-.98.045-1.51.207-1.86.344a3.1 3.1 0 00-1.13.74 3.1 3.1 0 00-.74 1.13c-.137.35-.299.88-.344 1.86-.056 1.235-.068 1.606-.068 4.743s.012 3.508.068 4.743c.045.98.207 1.51.344 1.86.145.375.34.72.74 1.13.375.4.755.594 1.13.74.35.137.88.299 1.86.344 1.235.056 1.606.068 4.743.068s3.508-.012 4.743-.068c.98-.045 1.51-.207 1.86-.344.375-.145.72-.34 1.13-.74.4-.375.594-.755.74-1.13.137-.35.299-.88.344-1.86.056-1.235.068-1.606.068-4.743s-.012-3.508-.068-4.743c-.045-.98-.207-1.51-.344-1.86a3.1 3.1 0 00-.74-1.13 3.1 3.1 0 00-1.13-.74c-.35-.137-.88-.299-1.86-.344-1.235-.056-1.606-.068-4.743-.068zM12 5.838a6.162 6.162 0 110 12.324 6.162 6.162 0 010-12.324zm0 1.8a4.362 4.362 0 100 8.724 4.362 4.362 0 000-8.724zm6.406-.676a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+      </svg>
+    </a>
+
+    <!-- TikTok -->
+    <a href="https://tiktok.com" target="_blank" aria-label="TikTok">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#111" viewBox="0 0 24 24">
+        <path d="M9.5 3a6.5 6.5 0 00-6.5 6.5v5a6.5 6.5 0 1013 0v-3a6.5 6.5 0 003-1.22v1.72a8 8 0 11-8-8v2a6 6 0 100 12v-7h2v7a4 4 0 11-4-4v-5a4.5 4.5 0 014.5-4.5H15V3h-5.5z"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="logo">GRIT-ICE</div>
+
+  <div class="hamburger" onclick="document.querySelector('nav').classList.toggle('active')">
+    <span></span><span></span><span></span>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+      <a href="#shop" onclick="toggleDropdown(event)">Shop ▾</a>
+      <div class="dropdown-content">
+        <a href="#highlights">Highlights</a>
+        <a href="#shop">New Drops</a>
+        <a href="#shop2">Bottoms</a>
+      </div>
+    </div>
+    <a href="about.html">About</a>
+    <a href="#onair">On Air</a>
+    <a href="cart.html">Cart</a>
+    <a href="stores.html">Stores</a>
+  </nav>
+</header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="MODELVID.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay">
+      <a href="#shop" class="shop-button">SHOP HERE</a>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section id="highlights">
+    <h2 class="section-title">Highlights</h2>
+    <div class="highlights-row">
+      <a href="black-monochrome.html" class="highlight-product">
+        <img src="blackmonochrome.webp" alt="Look 1" />
+        <p>Black Monochrome</p>
+      </a>
+      <a href="urbanrebel.html" class="highlight-product">
+        <img src="urbanrebel.jpg" alt="Look 2" />
+        <p>Urban Rebel</p>
+      </a>
+      <a href="monochromeknight.html" class="highlight-product">
+        <img src="monochromeknight.webp" alt="Look 3" />
+        <p>Monochrome Knight</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ON AIR -->
+  <section id="onair">
+    <h2 class="section-title">GRIT-ICE On Air</h2>
+    <div class="highlights-row">
+      <a href="https://hghmnds.ph/blogs/hghmnds-on-air/apoc-the-death-architect-bulalakaw-hghmnds-on-air-live" class="highlight-product">
+        <img src="live1.webp" alt="Ep1" />
+        <p>HUSTL x WAVE</p><p>LIVE</p>
+      </a>
+      <a href="https://hghmnds.ph/blogs/hghmnds-on-air/loonie-feat-apekz-ron-henley-and-abra-aral-hghmnds-on-air-live" class="highlight-product">
+        <img src="live2.webp" alt="Ep2" />
+        <p>BLAZE & GRIT</p><p>LIVE</p>
+      </a>
+      <a href="https://hghmnds.ph/blogs/hghmnds-on-air/paul-n-ballin-pogi-hghmnds-on-air-live" class="highlight-product">
+        <img src="live3.webp" alt="Ep3" />
+        <p>NEON RAW</p><p>LIVE</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- NEW DROPS -->
+  <section id="shop">
+    <h2 class="section-title">New Drops</h2>
+    <div class="highlights-row">
+      <a href="lockandloaded.html" class="highlight-product">
+        <img src="lockandloaded.webp" alt="Lock and Loaded Tee" />
+        <p>Lock and Loaded Tee - ₱750</p>
+      </a>
+      <a href="tankrose.html" class="highlight-product">
+        <img src="tankrose2.webp" alt="Rose Tank" />
+        <p>Rose Tank - ₱750</p>
+      </a>
+      <a href="cocktailtee.html" class="highlight-product">
+        <img src="cocktail.webp" alt="Cocktail Tee" />
+        <p>Cocktail Tee - ₱800</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- BOTTOM -->
+  <section id="shop2">
+    <h2 class="section-title">Bottom</h2>
+    <div class="highlights-row">
+      <a href="shock.html" class="highlight-product">
+        <img src="shock.webp" alt="Shock Pants" />
+        <p>Shock Pants - ₱1600</p>
+      </a>
+      <a href="royalbaggy.html" class="highlight-product">
+        <img src="royal.webp" alt="Royal Baggy" />
+        <p>Royal Baggy - ₱2250</p>
+      </a>
+      <a href="sweetchcik.html" class="highlight-product">
+        <img src="sweet2.webp" alt="Sweetchick Pants" />
+        <p>Sweetchick Pants - ₱800</p>
+      </a>
+    </div>
+  </section>
+
+ <footer style="background-color: #111; color: #fff; font-family: Arial, sans-serif;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; text-align: left;">
+    
+    <div style="flex: 1 1 200px; margin-bottom: 1rem;">
+      <h3 style="margin-bottom: 0.5rem;">GRIT-ICE</h3>
+      <p style="margin: 0; font-size: 0.9rem;">Urban gear for bold rebels.<br>Built with GRIT, chilled with ICE.</p>
+    </div>
+    
+    <div style="flex: 1 1 150px; margin-bottom: 1rem;">
+      <h4 style="margin-bottom: 0.5rem;">Quick Links</h4>
+      <ul style="list-style: none; padding: 0; margin: 0;">
+        <li><a href="index.html" style="color: #ccc; text-decoration: none;">Home</a></li>
+        <li><a href="#shop" style="color: #ccc; text-decoration: none;">Shop</a></li>
+        <li><a href="about.html" style="color: #ccc; text-decoration: none;">About</a></li>
+        <li><a href="cart.html" style="color: #ccc; text-decoration: none;">Cart</a></li>
+      </ul>
+    </div>
+
+    <div style="flex: 1 1 150px; margin-bottom: 1rem;">
+      <h4 style="margin-bottom: 0.5rem;">Connect</h4>
+      <div style="display: flex; gap: 1rem; font-size: 1.2rem;">
+        <a href="https://facebook.com" target="_blank" style="color: #ccc;"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://instagram.com" target="_blank" style="color: #ccc;"><i class="fab fa-instagram"></i></a>
+        <a href="https://tiktok.com" target="_blank" style="color: #ccc;"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="border-top: 1px solid #333; text-align: center; padding: 1rem 0; font-size: 0.8rem;">
+    © 2025 GRIT-ICE. All rights reserved.
+  </div>
+</footer>
+
+  <script>
+    function toggleDropdown(e) {
+      e.preventDefault();
+      const dropdown = e.target.closest(".dropdown");
+      dropdown.classList.toggle("open");
+    }
+  </script>
+</body>
+</html>

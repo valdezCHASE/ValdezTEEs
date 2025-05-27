@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About – GRIT-ICE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0a0a0a;
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+    header {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    header video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 2;
+    }
+    .header-content {
+      position: relative;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+    }
+    .header-content h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    .typewriter {
+      font-size: 1.3rem;
+      color: #ccc;
+      border-right: 2px solid #ccc;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(40, end) forwards, blink 1s step-end infinite;
+    }
+    @keyframes typing {
+      to {
+        width: 100%;
+      }
+    }
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+    nav {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      z-index: 5;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 16px;
+    }
+    .scroll-down {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      color: #fff;
+      cursor: pointer;
+      z-index: 4;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .profile-img {
+      width: 200px;
+      border-radius: 100px;
+      border: 3px solid #555;
+      margin-bottom: 20px;
+    }
+    .intro-text {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 60px;
+    }
+    .quote-block {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+    .quote-block img {
+      width: 300px;
+      border-radius: 12px;
+      border: 2px solid #444;
+    }
+    .quote {
+      font-style: italic;
+      color: #aaa;
+      max-width: 400px;
+      font-size: 1rem;
+    }
+    footer {
+      background-color: #111;
+      padding: 20px 0;
+      text-align: center;
+      border-top: 1px solid #222;
+    }
+    .social-icons a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 20px;
+      text-decoration: none;
+    }
+    @media (max-width: 768px) {
+      .quote-block {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <video id="bg-video" autoplay muted loop>
+      <source src="MODELVID.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <div class="header-content">
+      <h1>GRIT-ICE</h1>
+      <div class="typewriter">Ice in my veins. Fire in my soul.</div>
+      <div class="scroll-down" onclick="scrollToContent()">
+        ↓ Scroll Down
+      </div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <div id="about-content" class="container">
+    <img src="me2.jpg" alt="Your Photo" class="profile-img">
+    <p class="intro-text">
+      GRIT-ICE isn't just a brand—it's my story. My grind. My truth. <br>
+      Every drop, every thread, every word—galing 'to sa akin. <br>
+      <strong>"Ice in my veins, fire in my soul."</strong>
+    </p>
+
+    <div class="quote-block">
+      <img src="me1.jpg" alt="First Image">
+      <p class="quote">“Walang shortcut sa tunay na grit. Hustle hard, keep it cold.”</p>
+    </div>
+
+    <div class="quote-block">
+      <img src="me3.jpg" alt="Second Image">
+      <p class="quote">“Hindi to pang-porma lang. Ito’y pang laban.”</p>
+      <p>
+        Starting this company was never just about business—it was about passion, purpose, and proving something to myself. Nagsimula ako sa simpleng ideya: gumawa ng sarili kong brand na totoong sumasalamin sa pagkatao ko at sa mga pinaniniwalaan ko.
+        <br><br>
+        Back then, wala akong malaking puhunan—just a vision, kaunting skills, at matinding drive. Gumagawa ako ng designs gabi-gabi, self-taught lahat, habang pinapanday ko ang tiwala ng unang mga taong naniwala sa akin. Bawat maliit na tagumpay, lakas ng loob. Bawat pagkakamali, aral na hindi matutumbasan.
+        <br><br>
+        This company was built from the ground up—walang shortcut, walang paandar. Sipag, tiyaga, at paniniwala lang sa sarili. Ngayon, hindi lang ito basta brand. Isa na itong komunidad, lifestyle, at patunay na kahit sino, basta may puso at determinasyon, pwedeng gumawa ng sariling marka.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-tiktok"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    function scrollToContent() {
+      const target = document.getElementById('about-content');
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

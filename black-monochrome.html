@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Black Monochrome Tanktop</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #111;
+      background: #fff;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #111;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .breadcrumb {
+      padding: 1rem 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 2rem;
+      gap: 2rem;
+    }
+    .product-image {
+      flex: 1;
+      min-width: 300px;
+    }
+    .product-image img {
+      width: 100%;
+      height: auto;
+    }
+    .product-details {
+      flex: 1;
+      min-width: 300px;
+    }
+    .product-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .product-price {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .product-desc {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+    .product-description {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    ul {
+      padding-left: 1rem;
+      list-style: disc;
+      color: #333;
+    }
+    .add-to-cart {
+      margin-top: 2rem;
+    }
+    .add-to-cart form {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    select, button, input[type="number"] {
+      padding: 0.6rem;
+      font-size: 1rem;
+    }
+    button {
+      background: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      padding: 0.7rem 1.5rem;
+      font-weight: 500;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">GRIT-ICE</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="cart.html">Cart</a>
+      <a href="stores.html">Stores</a>
+    </nav>
+  </header>
+
+  <div class="breadcrumb">
+    Home > Monochrome Collection > Black Monochrome 
+  </div>
+
+  <div class="product-container">
+    <div class="product-image">
+      <img src="blackmonochrome.webp" alt="Black Monochrome" />
+    </div>
+    <div class="product-details">
+      <div class="product-title">Black Monochrome</div>
+      <div class="product-price">₱750.00</div>
+      <div class="product-desc">
+        The night has its own kind of bloom. Wear this and carry its stillness with you.
+      </div>
+
+      <div class="product-description">DESCRIPTION</div>
+      <ul>
+        <li>Sublimated Print</li>
+        <li>Material: Mesh Fabric</li>
+        <li>Made in the Philippines</li>
+      </ul>
+
+      <div class="add-to-cart">
+        <form action="cart.html" method="GET">
+          <!-- Hidden fields for cart logic -->
+          <input type="hidden" name="title" value="Black Monochrome" />
+          <input type="hidden" name="image" value="blackmonochrome.webp" />
+
+          <select name="size" required>
+            <option value="" disabled selected>Select Size</option>
+            <option value="XS">XSMALL - ₱750.00</option>
+            <option value="S">SMALL - ₱750.00</option>
+            <option value="M">MEDIUM - ₱750.00</option>
+          </select>
+
+          <input type="number" name="qty" value="1" min="1" required />
+          <button type="submit">ADD TO CART</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

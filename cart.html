@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cart - GRIT-ICE</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #111;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .logo { font-size: 1.5rem; font-weight: bold; }
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #111;
+    }
+    .cart-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border: 1px solid #ddd;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .cart-item img {
+      width: 120px;
+      height: auto;
+    }
+    .item-details {
+      flex-grow: 1;
+    }
+    .item-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .item-price {
+      color: #555;
+      margin-top: 0.3rem;
+    }
+    .item-size {
+      margin-top: 0.2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .item-qty {
+      margin-top: 0.5rem;
+    }
+    .item-qty button {
+      padding: 2px 8px;
+      margin: 0 4px;
+    }
+    .total {
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: right;
+      margin-top: 1rem;
+    }
+    .checkout-btn, .clear-btn {
+      display: block;
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 0.8rem;
+      font-weight: bold;
+      text-decoration: none;
+      margin-top: 1rem;
+      cursor: pointer;
+      border: none;
+    }
+    .checkout-btn:hover, .clear-btn:hover {
+      opacity: 0.9;
+    }
+    form { margin-top: 2rem; }
+    textarea {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    .remove-btn {
+      background: #e00;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+ <header>
+    <div class="logo">GRIT-ICE</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="cart.html">Cart</a>
+      <a href="stores.html">Stores</a>
+    </nav>
+  </header>
+
+  <div class="cart-container">
+    <div id="cart-items"></div>
+    <div class="total">Total: ₱<span id="total">0</span>.00</div>
+    <div id="free-shipping-msg" style="text-align:right; color: green; margin-top: 0.5rem;"></div>
+    <div class="delivery-estimate" id="delivery-estimate" style="text-align:right; margin-top: 0.5rem; color:#555;"></div>
+
+    <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
+
+    <form id="checkout-form">
+      <h3>Select Payment Method</h3>
+      <label><input type="radio" name="payment" value="gcash" required> GCash</label><br>
+      <label><input type="radio" name="payment" value="bank"> Bank Transfer</label><br>
+      <label><input type="radio" name="payment" value="cod"> Cash on Delivery</label><br>
+
+      <div id="address-section" style="margin-top: 1rem;">
+        <label for="address">Delivery Address:</label><br>
+        <textarea id="address" name="address" rows="3" placeholder="Enter your full delivery address..."></textarea>
+      </div>
+
+      <button type="submit" class="checkout-btn">Confirm Order</button>
+    </form>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const title = params.get("title");
+    const image = params.get("image");
+    const size = params.get("size");
+    const qty = parseInt(params.get("qty") || "1");
+    const price = parseFloat(params.get("price") || "750");
+    if (title && image && size && qty > 0) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const existing = cart.find(item => item.title === title && item.size === size);
+
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        cart.push({ title, image, size, qty, price });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      history.replaceState(null, "", "cart.html");
+    }
+
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const container = document.getElementById("cart-items");
+      const totalEl = document.getElementById("total");
+      const shippingMsg = document.getElementById("free-shipping-msg");
+      const deliveryEl = document.getElementById("delivery-estimate");
+
+      container.innerHTML = "";
+      let total = 0;
+
+      if (cart.length === 0) {
+        container.innerHTML = "<p>Your cart is empty.</p>";
+        totalEl.innerText = "0";
+        shippingMsg.innerText = "";
+        deliveryEl.innerText = "";
+        return;
+      }
+
+      cart.forEach((item, index) => {
+        total += item.qty * item.price;
+        container.innerHTML += `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.title}" />
+            <div class="item-details">
+              <div class="item-title">${item.title}</div>
+              <div class="item-price">₱${item.price.toFixed(2)}</div>
+              <div class="item-size">Size: ${item.size}</div>
+              <div class="item-qty">
+                Quantity:
+                <button onclick="updateQty(${index}, -1)">-</button>
+                ${item.qty}
+                <button onclick="updateQty(${index}, 1)">+</button>
+              </div>
+              <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+            </div>
+          </div>
+        `;
+      });
+
+      totalEl.innerText = total.toFixed(2);
+
+      if (total >= 2000) {
+        shippingMsg.innerText = "🎉 You qualify for FREE shipping!";
+      } else {
+        shippingMsg.innerText = "";
+      }
+
+      const today = new Date();
+      const daysToAdd = Math.floor(Math.random() * 5) + 3;
+      const deliveryDate = new Date(today.getTime() + daysToAdd * 86400000);
+      deliveryEl.innerText = `Estimated delivery: ${deliveryDate.toDateString()}`;
+    }
+
+    function updateQty(index, change) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      if (!cart[index]) return;
+      cart[index].qty += change;
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function removeItem(index) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function clearCart() {
+      if (confirm("Are you sure you want to clear your cart?")) {
+        localStorage.removeItem("cart");
+        renderCart();
+      }
+    }
+
+    const addressSection = document.getElementById('address-section');
+    addressSection.style.display = 'block'; // Always show address section
+
+    const checkoutForm = document.getElementById('checkout-form');
+
+    checkoutForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+      const address = document.getElementById('address')?.value.trim();
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+      if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+      }
+
+      if (!address) {
+        alert('Please enter your delivery address.');
+        return;
+      }
+
+      alert(`Order confirmed!\nPayment: ${paymentMethod.toUpperCase()}\nItems: ${cart.length}\nTotal: ₱${cart.reduce((t, i) => t + i.price * i.qty, 0)}\nAddress: ${address}`);
+      localStorage.removeItem("cart");
+      renderCart();
+    });
+
+    renderCart();
+  </script>
+</body>
+</html>
